@@ -14,25 +14,36 @@ import subprocess
 
 # Add current directory to Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(
+    0, os.path.dirname(os.path.abspath(__file__))
+)  # Add twice to ensure root is in path
+sys.path.insert(
+    0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lrs-agents")
+)
 
 # Import our integration components
-from simplified_integration import OpenCodeTool, SimplifiedLRSAgent
+from lrs_agents.lrs.opencode.simplified_integration import (
+    OpenCodeTool,
+    SimplifiedLRSAgent,
+)
 
 # Import benchmark integration
-from benchmark_integration import (
+from lrs_agents.lrs.benchmarking.benchmark_integration import (
     integrate_benchmarks_into_main,
     add_benchmark_ui_to_main_html,
 )
 
 # Import enterprise security and monitoring
-from enterprise_security_monitoring import integrate_enterprise_features
+from lrs_agents.lrs.enterprise.enterprise_security_monitoring import (
+    integrate_enterprise_features,
+)
 
 # Import cognitive components
 try:
     from phase6_neuromorphic_research.phase6_neuromorphic_setup import (
         CognitiveArchitecture,
     )
-    from lrs_opencode_integration import CognitiveCodeAnalyzer
+    from lrs_agents.lrs.opencode.lrs_opencode_integration import CognitiveCodeAnalyzer
 
     COGNITIVE_AVAILABLE = True
 except ImportError:
@@ -40,7 +51,7 @@ except ImportError:
 
 # Import multi-agent coordination
 try:
-    from multi_agent_coordination import MultiAgentCoordinator
+    from lrs_agents.lrs.cognitive.multi_agent_coordination import MultiAgentCoordinator
 
     MULTI_AGENT_AVAILABLE = True
 except ImportError:
@@ -306,7 +317,9 @@ async def execute_multi_agent_workflow(request: dict):
             raise HTTPException(status_code=400, detail="No tasks provided")
 
         # Import here to avoid circular imports
-        from cognitive_multi_agent_demo import demonstrate_cognitive_multi_agent
+        from lrs_agents.lrs.cognitive.cognitive_multi_agent_demo import (
+            demonstrate_cognitive_multi_agent,
+        )
 
         # For demo purposes, run a simplified version
         # In production, this would create and execute actual workflow

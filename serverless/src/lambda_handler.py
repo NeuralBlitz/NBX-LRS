@@ -16,10 +16,10 @@ import traceback
 
 # Import LRS components
 try:
-    from lightweight_lrs import LightweightHierarchicalPrecision
-    from performance_optimization import run_optimized_analysis
-    from precision_calibration import PrecisionCalibrator
-    from multi_agent_coordination import (
+    from lrs_agents.lrs.opencode.lightweight_lrs import LightweightHierarchicalPrecision
+    from lrs_agents.lrs.enterprise.performance_optimization import run_optimized_analysis
+    from lrs_agents.lrs.cognitive.precision_calibration import PrecisionCalibrator
+    from lrs_agents.lrs.cognitive.multi_agent_coordination import (
         MultiAgentCoordinator,
         create_specialized_agents,
     )

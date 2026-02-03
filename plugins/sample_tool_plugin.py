@@ -4,7 +4,7 @@ SampleToolPlugin - OpenCode Tool Plugin
 A custom tool plugin for the OpenCode ↔ LRS-Agents platform.
 """
 
-from opencode_plugin_architecture import ToolPlugin, PluginMetadata
+from lrs_agents.lrs.enterprise.opencode_plugin_architecture import ToolPlugin, PluginMetadata
 from typing import Dict, List, Any
 
 

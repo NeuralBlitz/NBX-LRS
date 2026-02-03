@@ -4,7 +4,7 @@ SampleLRSPlugin - LRS-Enhanced Plugin
 An Active Inference enhanced plugin for the OpenCode ↔ LRS-Agents platform.
 """
 
-from opencode_plugin_architecture import LRSPlugin, PluginMetadata
+from lrs_agents.lrs.enterprise.opencode_plugin_architecture import LRSPlugin, PluginMetadata
 from typing import Dict, List, Any
 
 
