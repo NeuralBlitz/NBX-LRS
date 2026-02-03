@@ -15,7 +15,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, field, field
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 import json
 import logging
@@ -404,7 +404,7 @@ class CognitiveEngine:
             if isinstance(consciousness_change, torch.Tensor):
                 consciousness_change = float(consciousness_change.item())
 
-        self.consciousness_model.global_coherence = (
+        self.consciousness_model.global_coherence = float(
             0.9 * self.consciousness_model.global_coherence + 0.1 * consciousness_change
         )
 
@@ -645,16 +645,6 @@ class CognitiveEngine:
             effectiveness_score=1.0,
         )
 
-                # Creative synthesis
-                creative_boost = torch.randn_like(torch_intent_tensor) * 0.02
-                creative_input = torch_intent_tensor + creative_boost
-                creative_output = self.neural_network(creative_input)
-                interpretations.append(creative_output)
-
-                # Intuitive leap (randomized association)
-                associative_input = self._generate_associative_input(intent)
-                intuitive_output = self.neural_network(associative_input)
-                interpretations.append(intuitive_output)
         else:
             # NumPy fallback processing
             primary_output = self.neural_network(full_vector)
