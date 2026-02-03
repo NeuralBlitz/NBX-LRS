@@ -1,0 +1,5 @@
+{
+  "integration-bridge/tests": true,
+  "lrs-agents/integration-bridge/tests": true,
+  "lrs-agents/tests": true
+}
