@@ -2,7 +2,7 @@
 
 # Web Framework
 flask==3.0.0
-flask-cors==6.0.0
+Flask-Cors>=6.0.0
 flask-sock==0.6.0
 flask-socketio==5.3.6
 gunicorn==22.0.0
