@@ -10,7 +10,7 @@ Phase: Neuro-Symbiotic Integration - N3 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import math
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
@@ -19,9 +19,16 @@ from enum import Enum
 from collections import deque
 
 # Scientific computing and signal processing
-from scipy import signal
-from scipy.fft import fft, ifft, fftfreq
-import soundfile as sf  # For audio generation (if available)
+from scipy import signal  # type: ignore
+from scipy.fft import fft, ifft, fftfreq  # type: ignore
+
+try:
+    import soundfile as sf  # For audio generation (if available)
+
+    SOUNDFILE_AVAILABLE = True
+except ImportError:
+    SOUNDFILE_AVAILABLE = False
+    sf = None
 
 
 class EntrainmentMode(Enum):
@@ -317,7 +324,7 @@ class NeuroFeedbackProcessor:
         """Calculate phase coherence of EEG signal"""
         # Apply Hilbert transform to get instantaneous phase
         try:
-            from scipy.signal import hilbert
+            from scipy.signal import hilbert  # type: ignore
 
             analytic_signal = hilbert(signal)
             instantaneous_phase = np.unwrap(np.angle(analytic_signal))
@@ -327,7 +334,7 @@ class NeuroFeedbackProcessor:
             phase_consistency = 1.0 - np.std(phase_diff) / (np.pi / 2)
 
             return max(0.0, min(1.0, phase_consistency))
-        except:
+        except Exception:
             return 0.5  # Default if Hilbert transform fails
 
     def calculate_adaptation_parameters(

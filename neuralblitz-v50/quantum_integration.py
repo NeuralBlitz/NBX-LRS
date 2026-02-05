@@ -10,7 +10,7 @@ Phase: Quantum Foundation - Integration
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 from typing import Dict, List, Optional, Tuple, Any, Union
 from dataclasses import dataclass, field
@@ -18,20 +18,20 @@ import json
 import logging
 
 # Import quantum components
-from .quantum_foundation import (
+from quantum_foundation import (
     quantum_comm_layer,
     qkd_system,
     QuantumAgent,
     QuantumState,
     initialize_quantum_foundation,
 )
-from .quantum_cryptography import (
+from quantum_cryptography import (
     quantum_encryption,
     secure_comm,
     QuantumSecureMessage,
     QuantumSession,
 )
-from .quantum_ml import (
+from quantum_ml import (
     quantum_nn,
     consciousness_sim,
     QuantumNeuralNetwork,
@@ -39,7 +39,7 @@ from .quantum_ml import (
     initialize_quantum_ml,
     test_quantum_ml,
 )
-from .quantum_reality_simulator import (
+from quantum_reality_simulator import (
     reality_simulator,
     QuantumReality,
     Wormhole,

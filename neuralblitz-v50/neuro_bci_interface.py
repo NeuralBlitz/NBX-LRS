@@ -10,7 +10,7 @@ Phase: Neuro-Symbiotic Integration - N1 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import json
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
@@ -21,13 +21,21 @@ import queue
 from collections import deque
 
 # Scientific computing for neural processing
-from scipy import signal
-from scipy.fft import fft, ifft, fftfreq
+from scipy import signal  # type: ignore
+from scipy.fft import fft, ifft, fftfreq  # type: ignore
 import math
 
-# Import quantum components
-from .quantum_foundation import quantum_comm_layer, QuantumState
-from .quantum_ml import consciousness_sim
+# Import quantum components (with fallback for standalone execution)
+try:
+    from quantum_foundation import quantum_comm_layer, QuantumState
+except ImportError:
+    quantum_comm_layer = None
+    QuantumState = None
+
+try:
+    from quantum_ml import consciousness_sim
+except ImportError:
+    consciousness_sim = None
 
 
 class BrainWaveBand(Enum):

@@ -10,7 +10,7 @@ Phase: Dimensional Computing & Multi-Reality - D3 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import math
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
@@ -19,9 +19,9 @@ from enum import Enum
 from collections import deque
 
 # Scientific computing
-from scipy.special import gamma, factorial
-from scipy.integrate import odeint
-from scipy.stats import multivariate_normal
+from scipy.special import gamma, factorial  # type: ignore
+from scipy.integrate import odeint  # type: ignore
+from scipy.stats import multivariate_normal  # type: ignore
 
 
 class ConsciousnessDimension(Enum):

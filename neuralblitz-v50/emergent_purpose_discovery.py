@@ -10,7 +10,7 @@ Phase: Autonomous Self-Evolution & Cosmic Integration - E3 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import hashlib
 import json
@@ -21,10 +21,10 @@ from collections import deque
 
 # Import existing systems
 try:
-    from .autonomous_self_evolution import self_evolution_system
-    from .self_improving_code_generation import self_improving_generator
-    from .quantum_integration import quantum_core
-    from .dimensional_computing_integration import dimensional_computing_integrator
+    from autonomous_self_evolution import self_evolution_system
+    from self_improving_code_generation import self_improving_generator
+    from quantum_integration import quantum_core
+    from dimensional_computing_integration import dimensional_computing_integrator
 except ImportError:
     pass
 

@@ -10,7 +10,7 @@ Phase: Dimensional Computing & Multi-Reality - Complete Integration
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
 from dataclasses import dataclass, field
@@ -18,30 +18,37 @@ from enum import Enum
 import json
 
 # Import dimensional computing components
-from .dimensional_neural_processing import (
+from dimensional_neural_processing import (
     dimensional_processor,
     initialize_dimensional_processor,
     test_dimensional_processor,
 )
-from .multi_reality_nn import (
+from multi_reality_nn import (
     multi_reality_nn,
     initialize_multi_reality_nn,
     test_multi_reality_nn,
 )
-from .dimensional_consciousness import (
+from dimensional_consciousness import (
     dimensional_consciousness,
     initialize_dimensional_consciousness,
     test_dimensional_consciousness,
 )
-from .cross_reality_entanglement import (
+from cross_reality_entanglement import (
     cross_reality_entanglement,
     initialize_cross_reality_entanglement,
     test_cross_reality_entanglement,
 )
 
-# Import previous phase components
-from .quantum_integration import quantum_core
-from .neuro_symbiotic_integration import neuro_symbiotic_integrator
+# Import previous phase components (with fallback)
+try:
+    from quantum_integration import quantum_core
+except ImportError:
+    quantum_core = None
+
+try:
+    from neuro_symbiotic_integration import neuro_symbiotic_integrator
+except ImportError:
+    neuro_symbiotic_integrator = None
 
 
 class DimensionalComputingMode(Enum):

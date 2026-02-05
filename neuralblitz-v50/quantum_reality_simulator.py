@@ -10,7 +10,7 @@ Phase: Quantum Foundation - Q4 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import math
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable

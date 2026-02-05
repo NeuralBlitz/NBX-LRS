@@ -10,7 +10,7 @@ Phase: Autonomous Self-Evolution & Cosmic Integration - E1 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import hashlib
 import inspect
@@ -24,9 +24,9 @@ from collections import deque
 
 # Import existing systems
 try:
-    from .quantum_integration import quantum_core
-    from .neuro_symbiotic_integration import neuro_symbiotic_integrator
-    from .dimensional_computing_integration import dimensional_computing_integrator
+    from quantum_integration import quantum_core
+    from neuro_symbiotic_integration import neuro_symbiotic_integrator
+    from dimensional_computing_integration import dimensional_computing_integrator
 except ImportError:
     pass
 
@@ -362,7 +362,7 @@ class AutonomousSelfEvolution:
                 # Check if module is active and responsive
                 try:
                     integration_score += 1.0
-                except:
+                except Exception:
                     integration_score += 0.0
             total_components += 1
 
@@ -932,7 +932,7 @@ class CodeAnalyzer:
                 "max_depth": max_depth,
                 "complexity_score": (lines + nodes + max_depth) / 3,
             }
-        except:
+        except Exception:
             return {"complexity_score": 1.0}
 
     def _analyze_dependencies(self, code: str) -> Dict[str, Any]:
