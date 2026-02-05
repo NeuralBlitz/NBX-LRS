@@ -11,7 +11,7 @@ Phase: Neuro-Symbiotic Integration - N2 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import math
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
@@ -20,8 +20,8 @@ from enum import Enum
 from collections import deque
 
 # Scientific computing
-from scipy.integrate import odeint
-from scipy.interpolate import interp1d
+from scipy.integrate import odeint  # type: ignore
+from scipy.interpolate import interp1d  # type: ignore
 
 
 class NeurochemicalReceptor(Enum):

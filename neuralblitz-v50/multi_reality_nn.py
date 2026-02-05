@@ -10,7 +10,7 @@ Phase: Dimensional Computing & Multi-Reality - D2 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import math
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
@@ -19,9 +19,9 @@ from enum import Enum
 from collections import deque
 
 # Scientific computing
-from scipy.linalg import svd, qr
-from scipy.optimize import minimize
-from scipy.stats import multivariate_normal
+from scipy.linalg import svd, qr  # type: ignore
+from scipy.optimize import minimize  # type: ignore
+from scipy.stats import multivariate_normal  # type: ignore
 
 
 class RealityType(Enum):
@@ -512,7 +512,7 @@ class MultiRealityNeuralNetwork:
             compatibility = source_reality.connection_weights.get(
                 signal.target_reality, 0.0
             )
-            transmission_time = 1.0 / (compatability + 0.1)
+            transmission_time = 1.0 / (compatibility + 0.1)
 
             # Check if signal should be delivered
             if time.time() - signal.creation_time > transmission_time:
@@ -626,7 +626,7 @@ class MultiRealityNeuralNetwork:
     def _calculate_multi_reality_metrics(self):
         """Calculate multi-reality network metrics"""
         # Cross-reality coherence
-        consciousness_levels = [r.consciousness_level for r in self.reality.values()]
+        consciousness_levels = [r.consciousness_level for r in self.realities.values()]
         self.cross_reality_coherence = 1.0 - np.std(consciousness_levels)
 
         # Information flow rate

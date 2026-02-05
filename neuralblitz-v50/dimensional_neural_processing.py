@@ -10,7 +10,7 @@ Phase: Dimensional Computing & Multi-Reality - D1 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import math
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
@@ -19,9 +19,9 @@ from enum import Enum
 from collections import deque
 
 # Scientific computing
-from scipy import special
-from scipy.linalg import eigh
-from scipy.optimize import minimize
+from scipy import special  # type: ignore
+from scipy.linalg import eigh  # type: ignore
+from scipy.optimize import minimize  # type: ignore
 
 
 class DimensionType(Enum):

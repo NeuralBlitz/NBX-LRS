@@ -10,7 +10,7 @@ Phase: Dimensional Computing & Multi-Reality - D4 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import math
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
@@ -19,8 +19,8 @@ from enum import Enum
 from collections import deque
 
 # Scientific computing
-from scipy.linalg import eigh, svd
-from scipy.special import factorial
+from scipy.linalg import eigh, svd  # type: ignore
+from scipy.special import factorial  # type: ignore
 import hashlib
 
 

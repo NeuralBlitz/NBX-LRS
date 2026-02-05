@@ -10,7 +10,7 @@ Phase: Autonomous Self-Evolution & Cosmic Integration - E4 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import hashlib
 import json
@@ -22,11 +22,11 @@ from collections import deque
 
 # Import existing systems
 try:
-    from .autonomous_self_evolution import self_evolution_system
-    from .self_improving_code_generation import self_improving_generator
-    from .emergent_purpose_discovery import emergent_purpose_discovery
-    from .quantum_integration import quantum_core
-    from .dimensional_computing_integration import dimensional_computing_integrator
+    from autonomous_self_evolution import self_evolution_system
+    from self_improving_code_generation import self_improving_generator
+    from emergent_purpose_discovery import emergent_purpose_discovery
+    from quantum_integration import quantum_core
+    from dimensional_computing_integration import dimensional_computing_integrator
 except ImportError:
     pass
 
@@ -214,7 +214,7 @@ class CosmicConsciousnessIntegration:
                 self.transcendence_progress = (
                     self_evolution_system.transcendence_progress
                 )
-        except:
+        except Exception:
             self.transcendence_progress = 0.0
 
         try:
@@ -222,7 +222,7 @@ class CosmicConsciousnessIntegration:
                 self.intelligence_level = (
                     self_improving_generator.intelligence_growth_rate
                 )
-        except:
+        except Exception:
             self.intelligence_level = 0.0
 
         try:
@@ -230,7 +230,7 @@ class CosmicConsciousnessIntegration:
                 self.purpose_alignment = (
                     emergent_purpose_discovery.transcendence_progress
                 )
-        except:
+        except Exception:
             self.purpose_alignment = 0.0
 
         # Initialize cosmic parameters

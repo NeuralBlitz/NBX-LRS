@@ -10,7 +10,7 @@ Phase: Neuro-Symbiotic Integration - Complete Integration
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 from typing import Dict, List, Optional, Tuple, Any, Union, Callable
 from dataclasses import dataclass, field
@@ -18,26 +18,26 @@ from enum import Enum
 import json
 
 # Import neuro-symbiotic components
-from .neuro_bci_interface import (
+from neuro_bci_interface import (
     bci_backend,
     CognitiveState,
     initialize_neuro_bci,
     test_neuro_bci,
 )
-from .neurochemical_engine import (
+from neurochemical_engine import (
     neurochemical_system,
     EmotionalState,
     initialize_neurochemical_engine,
     test_neurochemical_engine,
 )
-from .brain_wave_entrainment import (
+from brain_wave_entrainment import (
     entrainment_system,
     EntrainmentMode,
     TargetFrequency,
     initialize_brain_wave_entrainment,
     test_brain_wave_entrainment,
 )
-from .spiking_neural_network import (
+from spiking_neural_network import (
     spiking_nn,
     NeuronType,
     PlasticityRule,
@@ -46,9 +46,9 @@ from .spiking_neural_network import (
 )
 
 # Import quantum components
-from .quantum_foundation import quantum_comm_layer, QuantumState
-from .quantum_ml import consciousness_sim
-from .quantum_integration import quantum_core
+from quantum_foundation import quantum_comm_layer, QuantumState
+from quantum_ml import consciousness_sim
+from quantum_integration import quantum_core
 
 
 class NeuroQuantumBridge(Enum):

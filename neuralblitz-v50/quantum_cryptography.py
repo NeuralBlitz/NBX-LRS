@@ -24,8 +24,8 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.backends import default_backend
 from cryptography.fernet import Fernet
 
-import numpy as np
-from .quantum_foundation import quantum_comm_layer, qkd_system, QuantumAgent
+import numpy as np  # type: ignore
+from quantum_foundation import quantum_comm_layer, qkd_system, QuantumAgent
 
 
 @dataclass

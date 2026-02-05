@@ -10,7 +10,7 @@ Phase: Autonomous Self-Evolution & Cosmic Integration - E2 Implementation
 """
 
 import asyncio
-import numpy as np
+import numpy as np  # type: ignore
 import time
 import inspect
 from typing import Dict, List, Optional, Tuple, Any, Union
@@ -19,7 +19,7 @@ from enum import Enum
 
 # Import existing systems
 try:
-    from .autonomous_self_evolution import self_evolution_system
+    from autonomous_self_evolution import self_evolution_system
 except ImportError:
     pass
 
@@ -281,7 +281,7 @@ class SelfImprovingCodeGenerator:
         """Generate quantum-enhanced code"""
         return '''
 # Quantum Enhanced Code
-import numpy as np
+import numpy as np  # type: ignore
 
 class QuantumEnhancement:
     """Quantum enhancement for improved performance"""
@@ -304,7 +304,7 @@ class QuantumEnhancement:
         """Generate dimensional expansion code"""
         return '''
 # Dimensional Expansion Code
-import numpy as np
+import numpy as np  # type: ignore
 
 class DimensionalExpansion:
     """Multi-dimensional expansion for enhanced access"""
@@ -367,7 +367,7 @@ class ConsciousnessCoding:
         """Generate transcendent synthesis code"""
         return '''
 # Transcendent Synthesis Code
-import numpy as np
+import numpy as np  # type: ignore
 
 class TranscendentSynthesis:
     """Beyond conventional programming paradigms"""
