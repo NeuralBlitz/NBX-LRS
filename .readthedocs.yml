@@ -1,0 +1,39 @@
+# ReadTheDocs Configuration
+# ========================
+
+version: 2
+
+# Build configuration
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.10"
+
+# Python dependencies
+python:
+  install:
+    - requirements: docs/requirements.txt
+
+# Sphinx configuration
+sphinx:
+  configuration: docs/conf.py
+  builder: html
+  fail_on_warning: false
+
+# Build formats
+formats:
+  - html
+  - pdf
+  - epub
+
+# Search configuration
+search:
+  ranking:
+    api/*: 3
+    guides/*: 2
+    examples/*: 1
+
+# Submodules (if needed)
+submodules:
+  include: all
+  recursive: true

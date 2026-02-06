@@ -1,0 +1,575 @@
+/*
+NeuralBlitz v50.0 Quantum ML Tests
+==================================
+
+Test suite for quantum ML module.
+
+Implementation Date: 2026-02-05
+*/
+
+package quantum
+
+import (
+	"math"
+	"testing"
+)
+
+// TestQuantumNeuralNetworkCreation tests creating a quantum neural network
+func TestQuantumNeuralNetworkCreation(t *testing.T) {
+	numInputs := 8
+	numLayers := 3
+	neuronsPerLayer := []int{16, 8, 4}
+
+	qnn := NewQuantumNeuralNetwork(numInputs, numLayers, neuronsPerLayer)
+
+	if qnn.NumInputs != numInputs {
+		t.Errorf("Expected %d inputs, got %d", numInputs, qnn.NumInputs)
+	}
+
+	if qnn.NumLayers != numLayers {
+		t.Errorf("Expected %d layers, got %d", numLayers, qnn.NumLayers)
+	}
+
+	if len(qnn.NeuronsPerLayer) != numLayers {
+		t.Errorf("Expected %d neuron layer sizes, got %d", numLayers, len(qnn.NeuronsPerLayer))
+	}
+
+	if len(qnn.Layers) != numLayers {
+		t.Errorf("Expected %d layers initialized, got %d", numLayers, len(qnn.Layers))
+	}
+}
+
+// TestQuantumLayerNeuronCount tests neuron count per layer
+func TestQuantumLayerNeuronCount(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(8, 2, []int{4, 2})
+
+	expectedNeurons := []int{4, 2}
+	for i, layer := range qnn.Layers {
+		if len(layer.Neurons) != expectedNeurons[i] {
+			t.Errorf("Layer %d: expected %d neurons, got %d", i, expectedNeurons[i], len(layer.Neurons))
+		}
+	}
+}
+
+// TestQuantumNeuronInitialization tests neuron initialization
+func TestQuantumNeuronInitialization(t *testing.T) {
+	neuron := NewQuantumNeuron("test_neuron", 8, ActivationQuantumSigmoid)
+
+	if neuron.NeuronID != "test_neuron" {
+		t.Errorf("Expected neuron ID 'test_neuron', got '%s'", neuron.NeuronID)
+	}
+
+	if len(neuron.InputWeights) != 8 {
+		t.Errorf("Expected 8 input weights, got %d", len(neuron.InputWeights))
+	}
+
+	if neuron.ActivationFunction != ActivationQuantumSigmoid {
+		t.Errorf("Expected ActivationQuantumSigmoid, got %v", neuron.ActivationFunction)
+	}
+
+	if neuron.CoherenceFactor != 1.0 {
+		t.Errorf("Expected coherence factor 1.0, got %f", neuron.CoherenceFactor)
+	}
+}
+
+// TestQuantumActivationTypeString tests activation type string representation
+func TestQuantumActivationTypeString(t *testing.T) {
+	tests := []struct {
+		activationType QuantumActivationType
+		expected     string
+	}{
+		{ActivationQuantumSigmoid, "quantum_sigmoid"},
+		{ActivationQuantumRelu, "quantum_relu"},
+		{ActivationQuantumTanh, "quantum_tanh"},
+		{QuantumActivationType(99), "unknown"},
+	}
+
+	for _, tt := range tests {
+		result := tt.activationType.String()
+		if result != tt.expected {
+			t.Errorf("ActivationType(%d).String() = '%s', expected '%s'",
+				tt.activationType, result, tt.expected)
+		}
+	}
+}
+
+// TestQuantumMLModelString tests ML model string representation
+func TestQuantumMLModelString(t *testing.T) {
+	tests := []struct {
+		model    QuantumMLModel
+		expected string
+	}{
+		{ModelVariationalClassifier, "quantum_variational_classifier"},
+		{ModelQuantumConvolution, "quantum_convolution"},
+		{ModelQuantumTransformer, "quantum_transformer"},
+		{ModelQuantumReinforcement, "quantum_reinforcement"},
+		{ModelQuantumGAN, "quantum_gan"},
+		{ModelQuantumConsciousness, "quantum_consciousness"},
+		{QuantumMLModel(99), "unknown"},
+	}
+
+	for _, tt := range tests {
+		result := tt.model.String()
+		if result != tt.expected {
+			t.Errorf("QuantumMLModel(%d).String() = '%s', expected '%s'",
+				tt.model, result, tt.expected)
+		}
+	}
+}
+
+// TestQuantumForwardPassBasic tests basic forward pass
+func TestQuantumForwardPassBasic(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 2, []int{4, 2})
+
+	inputs := []float64{0.1, 0.2, 0.3, 0.4}
+	output := qnn.QuantumForwardPass(inputs)
+
+	if len(output) != 2 {
+		t.Errorf("Expected output length 2, got %d", len(output))
+	}
+
+	for i, val := range output {
+		if val < -1 || val > 1 {
+			t.Errorf("Output[%d] = %f, out of expected range [-1, 1]", i, val)
+		}
+	}
+}
+
+// TestQuantumForwardPassDifferentInputs tests forward pass with different inputs
+func TestQuantumForwardPassDifferentInputs(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 2, []int{4, 2})
+
+	inputs1 := []float64{0.1, 0.2, 0.3, 0.4}
+	inputs2 := []float64{0.9, 0.8, 0.7, 0.6}
+
+	output1 := qnn.QuantumForwardPass(inputs1)
+	output2 := qnn.QuantumForwardPass(inputs2)
+
+	// Different inputs should produce different outputs
+	different := false
+	for i := range output1 {
+		if output1[i] != output2[i] {
+			different = true
+			break
+		}
+	}
+
+	if !different {
+		t.Error("Different inputs should produce different outputs")
+	}
+}
+
+// TestQuantumActivationSigmoid tests quantum sigmoid activation
+func TestQuantumActivationSigmoid(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 1, []int{2})
+
+	quantumState := []float64{0.5, 0.5}
+	result := qnn.quantumSigmoid(0.0, quantumState)
+
+	if result < 0 || result > 1 {
+		t.Errorf("Sigmoid output %f out of range [0, 1]", result)
+	}
+}
+
+// TestQuantumActivationRelu tests quantum ReLU activation
+func TestQuantumActivationRelu(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 1, []int{2})
+
+	quantumState := []float64{0.5, 0.5}
+
+	// Positive input
+	result := qnn.quantumRelu(2.0, quantumState)
+	if result < 0 {
+		t.Errorf("ReLU(2.0) = %f, should be >= 0", result)
+	}
+
+	// Negative input (quantum tunneling may allow small negative values)
+	result = qnn.quantumRelu(-0.5, quantumState)
+	if result < -0.1 {
+		t.Errorf("ReLU(-0.5) = %f, tunneling should be bounded", result)
+	}
+}
+
+// TestQuantumActivationTanh tests quantum tanh activation
+func TestQuantumActivationTanh(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 1, []int{2})
+
+	quantumState := []float64{0.5, 0.5}
+	result := qnn.quantumTanh(0.0, quantumState)
+
+	if result < -1 || result > 1 {
+		t.Errorf("Tanh output %f out of range [-1, 1]", result)
+	}
+}
+
+// TestQuantumMeasurement tests quantum measurement
+func TestQuantumMeasurement(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 1, []int{2})
+
+	quantumState := []float64{0.5, 0.5}
+
+	// High coherence
+	result := qnn.quantumMeasurement(quantumState, 0.9)
+	if result < 0 || result >= 2 {
+		t.Errorf("Measurement with high coherence %f out of range [0, 2)", result)
+	}
+
+	// Low coherence (should collapse)
+	result = qnn.quantumMeasurement(quantumState, 0.3)
+	if result < 0 || result >= 2 {
+		t.Errorf("Measurement with low coherence %f out of range [0, 2)", result)
+	}
+}
+
+// TestCreateQuantumSuperposition tests superposition creation
+func TestCreateQuantumSuperposition(t *testing.T) {
+	numStates := 4
+	state := createQuantumSuperposition(numStates)
+
+	if len(state) != numStates {
+		t.Errorf("Expected %d states, got %d", numStates, len(state))
+	}
+
+	// Check probabilities sum to 1
+	var sum float64
+	for _, amp := range state {
+		sum += amp
+	}
+
+	if math.Abs(sum-1.0) > 0.01 {
+		t.Errorf("Probabilities should sum to 1, got %f", sum)
+	}
+}
+
+// TestArgmaxFunction tests argmax utility function
+func TestArgmaxFunction(t *testing.T) {
+	tests := []struct {
+		input    []float64
+		expected int
+	}{
+		{[]float64{0.1, 0.9, 0.3, 0.5}, 1},
+		{[]float64{0.9, 0.1, 0.3, 0.5}, 0},
+		{[]float64{0.1, 0.2, 0.3, 0.4}, 3},
+		{[]float64{1.0}, 0},
+	}
+
+	for _, tt := range tests {
+		result := argmax(tt.input)
+		if result != tt.expected {
+			t.Errorf("argmax(%v) = %d, expected %d", tt.input, result, tt.expected)
+		}
+	}
+}
+
+// TestArgmaxEmptySlice tests argmax with empty slice
+func TestArgmaxEmptySlice(t *testing.T) {
+	result := argmax([]float64{})
+	if result != 0 {
+		t.Errorf("argmax(empty) = %d, expected 0", result)
+	}
+}
+
+// TestQuantumLossCalculation tests quantum loss function
+func TestQuantumLossCalculation(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 1, []int{2})
+	qnn.CoherenceFactor = 0.9
+
+	prediction := []float64{0.8, 0.2}
+	target := []float64{1.0, 0.0}
+
+	loss := qnn.quantumLoss(prediction, target)
+
+	if loss < 0 {
+		t.Errorf("Loss should be non-negative, got %f", loss)
+	}
+
+	// Perfect prediction
+	loss = qnn.quantumLoss(target, target)
+	if loss != (1.0-qnn.CoherenceFactor)*0.1 {
+		t.Errorf("Expected decoherence penalty only for perfect prediction")
+	}
+}
+
+// TestTrainingHistoryTests tests training history structure
+func TestTrainingHistoryTests(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 1, []int{2})
+
+	// Create training data
+	XTrain := [][]float64{
+		{0.1, 0.2, 0.3, 0.4},
+		{0.5, 0.6, 0.7, 0.8},
+	}
+	yTrain := [][]float64{
+		{1.0, 0.0},
+		{0.0, 1.0},
+	}
+
+	epochs := 10
+	learningRate := 0.01
+
+	result := qnn.QuantumTrain(XTrain, yTrain, epochs, learningRate)
+
+	if len(result.Loss) != epochs {
+		t.Errorf("Expected %d loss values, got %d", epochs, len(result.Loss))
+	}
+
+	if len(result.Accuracy) != epochs {
+		t.Errorf("Expected %d accuracy values, got %d", epochs, len(result.Accuracy))
+	}
+
+	if len(result.Coherence) != epochs {
+		t.Errorf("Expected %d coherence values, got %d", epochs, len(result.Coherence))
+	}
+
+	if result.Epochs != epochs {
+		t.Errorf("Expected %d epochs recorded, got %d", epochs, result.Epochs)
+	}
+}
+
+// TestZeroTrainingData tests training with minimal data
+func TestZeroTrainingData(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 1, []int{2})
+
+	result := qnn.QuantumTrain([][]float64{}, [][]float64{}, 5, 0.01)
+
+	if len(result.Loss) != 0 {
+		t.Error("Training with no data should produce no loss values")
+	}
+}
+
+// TestCoherenceFactorEvolution tests coherence factor evolution during training
+func TestCoherenceFactorEvolution(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 1, []int{2})
+	initialCoherence := qnn.CoherenceFactor
+
+	XTrain := [][]float64{{0.1, 0.2, 0.3, 0.4}}
+	yTrain := [][]float64{{1.0, 0.0}}
+
+	qnn.QuantumTrain(XTrain, yTrain, 10, 0.01)
+
+	if qnn.CoherenceFactor <= initialCoherence {
+		t.Error("Coherence should increase during training")
+	}
+}
+
+// TestGetStats tests network statistics
+func TestGetStats(t *testing.T) {
+	qnn := NewQuantumNeuralNetwork(4, 2, []int{8, 4})
+
+	stats := qnn.GetStats()
+
+	if stats.NumLayers != 2 {
+		t.Errorf("Expected 2 layers, got %d", stats.NumLayers)
+	}
+
+	expectedNeurons := 8 + 4
+	if stats.TotalNeurons != expectedNeurons {
+		t.Errorf("Expected %d total neurons, got %d", expectedNeurons, stats.TotalNeurons)
+	}
+
+	if stats.CoherenceFactor != 1.0 {
+		t.Errorf("Initial coherence should be 1.0, got %f", stats.CoherenceFactor)
+	}
+}
+
+// TestConsciousnessSimulatorCreation tests consciousness simulator creation
+func TestConsciousnessSimulatorCreation(t *testing.T) {
+	qcs := NewQuantumConsciousnessSimulator(8)
+
+	if qcs.NumConsciousnessQubits != 8 {
+		t.Errorf("Expected 8 qubits, got %d", qcs.NumConsciousnessQubits)
+	}
+
+	if len(qcs.ConsciousnessStates) != 5 {
+		t.Errorf("Expected 5 consciousness states, got %d", len(qcs.ConsciousnessStates))
+	}
+
+	if len(qcs.QuantumMemory) != 0 {
+		t.Error("Expected no initial memories")
+	}
+}
+
+// TestConsciousnessStateTransitions tests consciousness level transitions
+func TestConsciousnessStateTransitions(t *testing.T) {
+	qcs := NewQuantumConsciousnessSimulator(8)
+
+	tests := []struct {
+		stimuli     []float64
+		shouldBeAt string
+	}{
+		{[]float64{0.05, 0.05, 0.05, 0.05}, "dormant"},
+		{[]float64{0.25, 0.25, 0.25, 0.25}, "aware"},
+		{[]float64{0.45, 0.45, 0.45, 0.45}, "focused"},
+		{[]float64{0.65, 0.65, 0.65, 0.65}, "transcendent"},
+		{[]float64{0.95, 0.95, 0.95, 0.95}, "singularity"},
+	}
+
+	for _, tt := range tests {
+		state := qcs.SimulateConsciousnessTransition(tt.stimuli)
+		if state != tt.shouldBeAt {
+			t.Errorf("Stimuli %v should produce '%s', got '%s'", tt.stimuli, tt.shouldBeAt, state)
+		}
+	}
+}
+
+// TestConsciousnessMetrics tests consciousness metrics calculation
+func TestConsciousnessMetrics(t *testing.T) {
+	qcs := NewQuantumConsciousnessSimulator(8)
+
+	// Simulate some consciousness
+	stimuli := []float64{0.5, 0.5, 0.5, 0.5}
+	qcs.SimulateConsciousnessTransition(stimuli)
+
+	metrics := qcs.GetConsciousnessMetrics()
+
+	if metrics.ConsciousnessLevel <= 0 || metrics.ConsciousnessLevel > 1 {
+		t.Errorf("Consciousness level %f out of range (0, 1]", metrics.ConsciousnessLevel)
+	}
+
+	if metrics.MemoryDepth != 1 {
+		t.Errorf("Expected 1 memory, got %d", metrics.MemoryDepth)
+	}
+}
+
+// TestAttentionStateUpdate tests attention state updates
+func TestAttentionStateUpdate(t *testing.T) {
+	qcs := NewQuantumConsciousnessSimulator(4)
+
+	// Initially, attention should be uniform
+	for _, v := range qcs.AttentionQuantumState {
+		if v != 0.25 {
+			t.Error("Initial attention should be uniform")
+		}
+	}
+
+	// After focused consciousness, attention should sharpen
+	stimuli := []float64{0.9, 0.9, 0.9, 0.9}
+	qcs.SimulateConsciousnessTransition(stimuli)
+
+	// Check that attention has become non-uniform
+	uniform := true
+	for _, v := range qcs.AttentionQuantumState {
+		if v != qcs.AttentionQuantumState[0] {
+			uniform = false
+			break
+		}
+	}
+
+	if uniform {
+		t.Error("Attention should be non-uniform after focused consciousness")
+	}
+}
+
+// TestQuantumMemoryLimiting tests memory size limiting
+func TestQuantumMemoryLimiting(t *testing.T) {
+	qcs := NewQuantumConsciousnessSimulator(4)
+
+	// Add more than 100 memories
+	for i := 0; i < 150; i++ {
+		stimuli := []float64{0.1, 0.1, 0.1, 0.1}
+		qcs.SimulateConsciousnessTransition(stimuli)
+	}
+
+	if len(qcs.QuantumMemory) != 100 {
+		t.Errorf("Memory should be limited to 100, got %d", len(qcs.QuantumMemory))
+	}
+}
+
+// TestNormalizationFunction tests vector normalization
+func TestNormalizationFunction(t *testing.T) {
+	tests := []struct {
+		input    []float64
+		expected float64
+	}{
+		{[]float64{3.0, 4.0}, 1.0}, // 3-4-5 triangle
+		{[]float64{1.0, 0.0}, 1.0},
+		{[]float64{0.0, 0.0}, 0.0},
+	}
+
+	for _, tt := range tests {
+		result := normalize(tt.input)
+		if math.Abs(result[len(result)-1]-tt.expected) > 0.01 {
+			t.Errorf("normalize(%v)[last] = %f, expected %f",
+				tt.input, result[len(result)-1], tt.expected)
+		}
+	}
+}
+
+// TestDotProductFunction tests dot product calculation
+func TestDotProductFunction(t *testing.T) {
+	a := []float64{1.0, 2.0, 3.0}
+	b := []float64{4.0, 5.0, 6.0}
+
+	result := dotProduct(a, b)
+	expected := 1.0*4.0 + 2.0*5.0 + 3.0*6.0 // 4 + 10 + 18 = 32
+
+	if result != expected {
+		t.Errorf("dotProduct(%v, %v) = %f, expected %f", a, b, result, expected)
+	}
+}
+
+// TestMagnitudeFunction tests magnitude calculation
+func TestMagnitudeFunction(t *testing.T) {
+	v := []float64{3.0, 4.0}
+
+	result := magnitude(v)
+	expected := 5.0
+
+	if math.Abs(result-expected) > 0.01 {
+		t.Errorf("magnitude(%v) = %f, expected %f", v, result, expected)
+	}
+}
+
+// TestQuantumInterferenceFunction tests interference calculation
+func TestQuantumInterferenceFunction(t *testing.T) {
+	qcs := NewQuantumConsciousnessSimulator(4)
+
+	state1 := []float64{0.5, 0.5, 0.5, 0.5}
+	state2 := []float64{0.5, 0.5, 0.5, 0.5}
+
+	result := qcs.quantumInterference(state1, state2)
+
+	// Result should be normalized
+	mag := magnitude(result)
+	if math.Abs(mag-1.0) > 0.01 {
+		t.Errorf("Interference result magnitude = %f, expected 1.0", mag)
+	}
+}
+
+// TestConsciousnessMetricsValues tests consciousness metric value ranges
+func TestConsciousnessMetricsValues(t *testing.T) {
+	qcs := NewQuantumConsciousnessSimulator(8)
+
+	// Test with various consciousness levels
+	levels := [][]float64{
+		{0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1},
+		{0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5},
+		{0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9},
+	}
+
+	for _, stimuli := range levels {
+		qcs.SimulateConsciousnessTransition(stimuli)
+		metrics := qcs.GetConsciousnessMetrics()
+
+		if metrics.AttentionEntropy < 0 || metrics.AttentionEntropy > 3 { // max entropy for 8 states is log2(8) = 3
+			t.Errorf("Attention entropy %f out of range [0, 3]", metrics.AttentionEntropy)
+		}
+	}
+}
+
+// TestTrainingWithDifferentLearningRates tests training with different learning rates
+func TestTrainingWithDifferentLearningRates(t *testing.T) {
+	qnn1 := NewQuantumNeuralNetwork(4, 1, []int{2})
+	qnn2 := NewQuantumNeuralNetwork(4, 1, []int{2})
+
+	XTrain := [][]float64{{0.1, 0.2, 0.3, 0.4}}
+	yTrain := [][]float64{{1.0, 0.0}}
+
+	result1 := qnn1.QuantumTrain(XTrain, yTrain, 5, 0.001) // Small learning rate
+	result2 := qnn2.QuantumTrain(XTrain, yTrain, 5, 0.1)  // Large learning rate
+
+	// Both should complete without errors
+	if len(result1.Loss) != 5 || len(result2.Loss) != 5 {
+		t.Error("Both training runs should complete")
+	}
+}

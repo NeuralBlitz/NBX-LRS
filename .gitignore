@@ -1,0 +1,35 @@
+# Go installation
+.go/
+
+# Build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+*.log
+*.tmp
+
+# Documentation build
+docs/_build/
+docs/_static/*.png
+
+# Environment
+.env
+.env.local
